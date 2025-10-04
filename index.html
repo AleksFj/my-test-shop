@@ -1,34 +1,67 @@
+```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Stripe Payment Test</title>
-  <script src="https://js.stripe.com/v3/"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мой сайт</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #74ABE2, #5563DE);
+      color: #fff;
+      text-align: center;
+    }
+
+    header {
+      padding: 50px 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    a.button {
+      display: inline-block;
+      padding: 12px 25px;
+      background: #fff;
+      color: #5563DE;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    a.button:hover {
+      background: #5563DE;
+      color: #fff;
+    }
+
+    footer {
+      margin-top: 50px;
+      padding: 20px;
+      font-size: 0.9rem;
+      background: rgba(0,0,0,0.2);
+    }
+  </style>
 </head>
 <body>
-  <h1>Тест оплаты через Stripe</h1>
-  <button id="checkout-button">Оплатить</button>
+  <header>
+    <h1>Добро пожаловать на мой сайт</h1>
+    <p>Этот сайт работает на GitHub Pages 🚀</p>
+    <a href="https://github.com" target="_blank" class="button">Мой GitHub</a>
+  </header>
 
-  <script>
-    const stripe = Stripe("pk_test_1234567890"); // сюда вставь свой Publishable Key из Stripe Dashboard
-
-    document.getElementById("checkout-button").addEventListener("click", () => {
-      fetch("http://localhost:5160/create-checkout-session", { // твой backend эндпоинт
-        method: "POST",
-      })
-      .then(response => response.json())
-      .then(session => {
-        return stripe.redirectToCheckout({ sessionId: session.id });
-      })
-      .then(result => {
-        if (result.error) {
-          alert(result.error.message);
-        }
-      })
-      .catch(error => {
-        console.error("Ошибка:", error);
-      });
-    });
-  </script>
+  <footer>
+    &copy; 2025 Мой сайт. Все права защищены.
+  </footer>
 </body>
 </html>
+```
