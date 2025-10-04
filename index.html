@@ -1,10 +1,36 @@
+```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Мой тестовый магазин</title>
+  <title>Stripe Payment Test</title>
+  <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
-  <h1>Добро пожаловать!</h1>
+  <h1>Тест оплаты через Stripe</h1>
+  <button id="checkout-button">Оплатить</button>
+
+  <script>
+    const stripe = Stripe("pk_test_1234567890"); // сюда вставь свой Publishable Key из Stripe Dashboard
+
+    document.getElementById("checkout-button").addEventListener("click", () => {
+      fetch("http://localhost:5160/create-checkout-session", { // твой backend эндпоинт
+        method: "POST",
+      })
+      .then(response => response.json())
+      .then(session => {
+        return stripe.redirectToCheckout({ sessionId: session.id });
+      })
+      .then(result => {
+        if (result.error) {
+          alert(result.error.message);
+        }
+      })
+      .catch(error => {
+        console.error("Ошибка:", error);
+      });
+    });
+  </script>
 </body>
 </html>
+```
